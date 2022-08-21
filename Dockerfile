@@ -1,4 +1,4 @@
-FROM messense/rust-musl-cross:aarch64-musl
+FROM messense/rust-musl-cross:x86_64-musl
 
 RUN  apt-get update -y \
      && apt-get install -y \
@@ -21,14 +21,13 @@ RUN wget -nv https://github.com/openssl/openssl/archive/OpenSSL_1_1_1f.tar.gz \
     && tar xzf OpenSSL_1_1_1f.tar.gz 
 
 WORKDIR /usr/local/src/openssl-OpenSSL_1_1_1f
-RUN CC='aarch64-unknown-linux-musl-cc' ./Configure no-shared no-async no-pic --prefix=/usr/local/openssl --openssldir=/usr/local/openssl/ssl linux-aarch64 \
+RUN CC='x86_64-unknown-linux-musl-cc -fPIE -pie' ./Configure no-shared no-async no-pic --prefix=/usr/local/openssl --openssldir=/usr/local/openssl/ssl linux-x86_64 \
     && make depend \
     && make -j \
     && make install
 
-ENV AARCH64_UNKNOWN_LINUX_MUSL_OPENSSL_DIR=/usr/local/openssl
+ENV OPENSSL_DIR=/usr/local/openssl
 ENV PKG_CONFIG_ALLOW_CROSS=1
 ENV OPENSSL_STATIC=1
 
 WORKDIR /home/rust/src
-
