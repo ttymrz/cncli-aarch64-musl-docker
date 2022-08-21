@@ -29,3 +29,8 @@ If you run docker as root, you need to change owner of cncli repository befor Ca
 ```bash
 sudo chown -R root:root <path>/cncli/
 ```
+
+## See Also
+
+- cncli: https://github.com/cardano-community/cncli
+- rust-musl-cross: https://github.com/messense/rust-musl-cross
