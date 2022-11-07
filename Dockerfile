@@ -17,10 +17,10 @@ RUN  apt-get update -y \
      zlib1g-dev
 
 WORKDIR /usr/local/src
-RUN wget -nv https://github.com/openssl/openssl/archive/OpenSSL_1_1_1f.tar.gz \
-    && tar xzf OpenSSL_1_1_1f.tar.gz 
+RUN wget -nv https://www.openssl.org/source/openssl-1.1.1s.tar.gz \
+    && tar xzf openssl-1.1.1s.tar.gz 
 
-WORKDIR /usr/local/src/openssl-OpenSSL_1_1_1f
+WORKDIR /usr/local/src/openssl-1.1.1s
 RUN CC='aarch64-unknown-linux-musl-cc' ./Configure no-shared no-async no-pic --prefix=/usr/local/openssl --openssldir=/usr/local/openssl/ssl linux-aarch64 \
     && make depend \
     && make -j \
